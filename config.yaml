@@ -1,0 +1,7 @@
+API Key:
+  openai: "sk-eUXrnuOoH3cZQwVyD21b886e583745F09e2b95AaD7C611D3"
+  deepseek: "sk-7f3baf18d09f4d928ffb28a89358cabd"
+  tmdb: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZTg5YzUxYWI3NzExZmY5NzU1NWY5MDM0MjMxZjU1OCIsIm5iZiI6MTc2NTI2MjcwMS4yNDg5OTk4LCJzdWIiOiI2OTM3YzU2ZDAyNmIyNjk2YzNlYjFhOTMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.vtg-2wO6xCBho86uWI2W64E_Ebd-q38TFBXl4af2uNQ"
+  spotify: ""
+  lastfm: "d214ed9df84f601f4bf300a9396f38d1"
+  openai_base_url: "https://api.rcouyi.com/v1"
