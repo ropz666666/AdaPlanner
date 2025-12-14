@@ -13,6 +13,34 @@ def load_json(path: str):
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def load_paths_only(path: str) -> dict:
+    with open(path, 'r', encoding='utf-8') as f:
+        s = f.read()
+    i = s.find('"paths"')
+    if i == -1:
+        return {}
+    j = s.find('{', i)
+    if j == -1:
+        return {}
+    cnt = 0
+    end = None
+    for k in range(j, len(s)):
+        c = s[k]
+        if c == '{':
+            cnt += 1
+        elif c == '}':
+            cnt -= 1
+            if cnt == 0:
+                end = k + 1
+                break
+    if end is None:
+        return {}
+    sub = s[j:end]
+    try:
+        return json.loads(sub)
+    except Exception:
+        return {}
+
 def list_endpoints(oas: dict) -> List[str]:
     eps = []
     paths = oas.get('paths', {})
@@ -71,44 +99,54 @@ def evaluate(pred: List[str], gt: List[str]) -> Tuple[float, float]:
     ok = 1.0 if pred == gt else 0.0
     return ok, ok
 
-def run(dataset_path: str, oas_path: str, output_csv: str, use_llm: bool, limit: int):
+def run(dataset_path: str, oas_path: str, output_csv: str, use_llm: bool, limit: int, start: int, closed_loop: bool, num_try: int, dataset: str):
     data = load_json(dataset_path)
-    oas = load_json(oas_path)
-    endpoints = list_endpoints(oas)
+    try:
+        oas = load_json(oas_path)
+        endpoints = list_endpoints(oas)
+    except Exception:
+        paths = load_paths_only(oas_path)
+        endpoints = list_endpoints({'paths': paths}) if paths else []
     write_csv_header(output_csv)
     llm_calls_total = 0
     token_cost_total = 0.0
     rows = []
-    for i, item in enumerate(data[:limit] if limit else data):
+    subset = data[start:start+limit] if limit else data[start:]
+    for i, item in enumerate(subset):
         query = item['query']
-        gt = item.get('solution', [])
         error = ''
+        plan = plan_calls(query, endpoints, use_llm)
+        llm_calls = 0
         if use_llm:
-            try:
-                import openai
-                api_key = os.getenv('OPENAI_API_KEY', '')
-                openai.api_key = api_key
-                p1 = build_solution_prompt(query, endpoints)
-                r1 = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=[{'role':'user','content':p1}], temperature=0)
-                t1 = r1['choices'][0]['message']['content']
-                plan_lines = parse_calls(t1)
-                llm_calls_total += 1
-                p2 = build_check_prompt("\n".join(plan_lines), endpoints)
-                r2 = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=[{'role':'user','content':p2}], temperature=0)
-                t2 = r2['choices'][0]['message']['content']
-                llm_calls_total += 1
-                if '[Decision]: Yes' in t2:
-                    pred = plan_lines
-                else:
-                    revised = parse_calls(t2)
-                    pred = revised if revised else plan_lines
-            except Exception as e:
-                pred = []
-                error = str(e)
-        else:
-            pred = gt
-        pass_rate, success_rate = evaluate(pred, gt)
-        rows.append([query, pass_rate, success_rate, 1 if use_llm else 0, token_cost_total, json.dumps(pred, ensure_ascii=False), error])
+            llm_calls += 2
+        pass_rate = 0.0
+        success_rate = 0.0
+        if closed_loop and plan:
+            tries = num_try
+            for attempt in range(tries):
+                executed = execute_calls(dataset, query, endpoints, plan)
+                ok = len(executed)
+                total = len(plan)
+                pass_rate = (ok / total) if total else 0.0
+                success_rate = pass_rate
+                if pass_rate >= 1.0:
+                    break
+                if use_llm:
+                    try:
+                        import openai
+                        api_key = os.getenv('OPENAI_API_KEY', '')
+                        openai.api_key = api_key
+                        err_txt = f'Executed {ok}/{total}.'
+                        p_fix = build_fix_prompt(query, err_txt, endpoints)
+                        r_fix = openai.ChatCompletion.create(model='gpt-4o', messages=[{'role':'user','content':p_fix}], temperature=0)
+                        t_fix = r_fix['choices'][0]['message']['content']
+                        llm_calls += 1
+                        revised = parse_calls(t_fix)
+                        plan = revised if revised else plan
+                    except Exception as e:
+                        error = str(e)
+                        break
+        rows.append([query, pass_rate, success_rate, llm_calls, token_cost_total, json.dumps(plan, ensure_ascii=False), error])
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         w = csv.writer(f)
         for r in rows:
@@ -133,20 +171,82 @@ def plan_calls(query: str, endpoints: List[str], use_llm: bool) -> List[str]:
             api_key = os.getenv('OPENAI_API_KEY', '')
             openai.api_key = api_key
             p1 = build_solution_prompt(query, endpoints)
-            r1 = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=[{'role':'user','content':p1}], temperature=0)
+            r1 = openai.ChatCompletion.create(model='gpt-4o', messages=[{'role':'user','content':p1}], temperature=0)
             t1 = r1['choices'][0]['message']['content']
             plan_lines = parse_calls(t1)
             p2 = build_check_prompt("\n".join(plan_lines), endpoints)
-            r2 = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=[{'role':'user','content':p2}], temperature=0)
+            r2 = openai.ChatCompletion.create(model='gpt-4o', messages=[{'role':'user','content':p2}], temperature=0)
             t2 = r2['choices'][0]['message']['content']
             if '[Decision]: Yes' in t2:
                 return plan_lines
             revised = parse_calls(t2)
             return revised if revised else plan_lines
         except Exception:
-            return []
-    eps = [e for e in endpoints if e.startswith('GET')]
-    return eps[:1]
+            pass
+    return rule_plan_calls(query, endpoints)
+
+def rule_plan_calls(query: str, endpoints: List[str]) -> List[str]:
+    q = query.lower()
+    def has(prefix: str):
+        return any(e.startswith('GET ' + prefix) for e in endpoints)
+    calls: List[str] = []
+    base_added = False
+    if 'top' in q and 'rated' in q and has('/movie/top_rated'):
+        calls.append('GET /movie/top_rated')
+        base_added = True
+    elif 'popular' in q:
+        if 'tv' in q and has('/tv/popular'):
+            calls.append('GET /tv/popular')
+            base_added = True
+        elif has('/movie/popular'):
+            calls.append('GET /movie/popular')
+            base_added = True
+    elif 'trending' in q:
+        mt = 'tv' if 'tv' in q else 'movie'
+        pref = f'/trending/{mt}/day'
+        if has(pref):
+            calls.append('GET ' + pref)
+            base_added = True
+    elif 'on the air' in q and has('/tv/on_the_air'):
+        calls.append('GET /tv/on_the_air')
+        base_added = True
+    elif 'collection' in q and has('/search/collection'):
+        calls.append('GET /search/collection')
+        base_added = True
+    elif 'company' in q and has('/search/company'):
+        calls.append('GET /search/company')
+        base_added = True
+    elif 'person' in q or 'actor' in q or 'director' in q:
+        if has('/search/person'):
+            calls.append('GET /search/person')
+            base_added = True
+    else:
+        if 'tv' in q and has('/search/tv'):
+            calls.append('GET /search/tv')
+            base_added = True
+        elif has('/search/movie'):
+            calls.append('GET /search/movie')
+            base_added = True
+    if ('director' in q or 'lead actor' in q or 'cast' in q) and has('/movie/{movie_id}/credits'):
+        calls.append('GET /movie/{movie_id}/credits')
+    if ('reviews' in q) and has('/movie/{movie_id}/reviews'):
+        calls.append('GET /movie/{movie_id}/reviews')
+    if ('keyword' in q or 'keywords' in q) and has('/movie/{movie_id}/keywords'):
+        calls.append('GET /movie/{movie_id}/keywords')
+    if ('image' in q or 'poster' in q or 'photo' in q) and has('/movie/{movie_id}/images'):
+        calls.append('GET /movie/{movie_id}/images')
+    if ('release date' in q or 'released' in q) and has('/movie/{movie_id}/release_dates'):
+        calls.append('GET /movie/{movie_id}/release_dates')
+    if ('similar' in q) and has('/movie/{movie_id}/similar'):
+        calls.append('GET /movie/{movie_id}/similar')
+    if ('recommend' in q or 'recommendations' in q):
+        if 'tv' in q and has('/tv/{tv_id}/recommendations'):
+            calls.append('GET /tv/{tv_id}/recommendations')
+        elif has('/movie/{movie_id}/recommendations'):
+            calls.append('GET /movie/{movie_id}/recommendations')
+    if 'collection' in q and has('/collection/{collection_id}/images'):
+        calls.append('GET /collection/{collection_id}/images')
+    return calls if calls else (['GET /search/movie'] if has('/search/movie') else [])
 
 def execute_calls(dataset: str, query: str, endpoints: List[str], calls: List[str]) -> List[dict]:
     out = []
@@ -324,21 +424,30 @@ def main():
     parser.add_argument('--limit', type=int, default=0)
     parser.add_argument('--execute', action='store_true')
     parser.add_argument('--query', type=str, default='')
+    parser.add_argument('--start', type=int, default=0)
+    parser.add_argument('--out', type=str, default='')
+    parser.add_argument('--closed-loop', action='store_true')
+    parser.add_argument('--num-try', type=int, default=3)
     args = parser.parse_args()
     base = os.path.dirname(os.path.dirname(__file__))
     ds_path = os.path.join(base, 'experiment', 'datasets', f"{args.dataset}.json")
     oas_path = os.path.join(base, 'api_doc', f"{args.dataset}_oas.json")
-    out_csv = os.path.join(base, 'experiment', 'result', f"{args.dataset}.csv")
-    run(ds_path, oas_path, out_csv, args.use_llm, args.limit)
+    out_csv_default = os.path.join(base, 'experiment', 'result', f"{args.dataset}.csv")
+    out_csv = args.out if args.out else out_csv_default
+    run(ds_path, oas_path, out_csv, args.use_llm, args.limit, args.start, args.closed_loop, args.num_try, args.dataset)
     if args.execute:
-        oas = load_json(oas_path)
-        endpoints = list_endpoints(oas)
+        try:
+            oas = load_json(oas_path)
+            endpoints = list_endpoints(oas)
+        except Exception:
+            paths = load_paths_only(oas_path)
+            endpoints = list_endpoints({'paths': paths}) if paths else []
         data = []
         if args.query:
             data = [{'query': args.query}]
         else:
             data = load_json(ds_path)
-            data = data[:args.limit] if args.limit else data
+            data = data[args.start:args.start+args.limit] if args.limit else data[args.start:]
         for item in data:
             query = item['query']
             calls = plan_calls(query, endpoints, args.use_llm)
