@@ -1,2 +1,217 @@
-requirement,pass_rate,success_rate,llm_calls,token_cost,result,error
+requirement,pass_rate,success_rate,llm_calls,token_cost,result,error,cost_time
+give me the number of movies directed by Sofia Coppola,1.0,1.0,3,15091,"The number of movies directed by Sofia Coppola is 5. This is derived from the ""crew"" field in the API data, where she is listed as the ""Director"" for the following movies:
 
+1. ""Lost in Translation""
+2. ""The Virgin Suicides""
+3. ""Marie Antoinette""
+4. ""Somewhere""
+5. ""The Bling Ring""",,13.53971529006958
+Who was the lead actor in the movie The Dark Knight?,1.0,1.0,3,39819,"Christian Bale was the lead actor in the movie ""The Dark Knight,"" playing the character Bruce Wayne. (Referenced from the field ""name"" and ""character"" in the cast data for movie ID 155.)",,20.465794324874878
+Who directed the top-1 rated movie?,1.0,1.0,3,19986,"Frank Darabont directed ""The Shawshank Redemption,"" the top-rated movie. (Referenced from the ""crew"" field, ""department"": ""Directing"", ""job"": ""Director"").",,12.201152801513672
+give me a image for the collection Star Wars,1.0,1.0,3,18188,"The image for the ""Star Wars Collection"" is available at the file path `/22dj38IckjzEEUZwN1tPU5VJ1qq.jpg`.",,10.04667067527771
+What is the logo of the Walt Disney?,1.0,1.0,3,2235,"The logo of ""The Walt Disney Company"" is ""/oz1p4QkoNONJZ3JT6BF6Jj4Nw2l.png"".",,9.526777267456055
+What dose the lead actor of Titanic look like?,0.6666666666666666,0.6666666666666666,4,7433,Insufficient data.,,12.865062713623047
+give me some reviews of the first movie that is similar to Titanic,1.0,1.0,3,9614,Insufficient data.,,11.07349181175232
+I just finished watching Titanic and I want some other movie recommendations,0.0,0.0,3,1674,,,8.34610915184021
+What is the latest movie directed by Christopher Nolan?,0.6666666666666666,0.6666666666666666,4,16357,Insufficient data.,,13.496599912643433
+tell me the highest rated movie directed by Martin Scorsese,0.75,0.75,4,19675,"The highest rated movie directed by Martin Scorsese, based on the provided API data, is ""Shutter Island"" with a vote average of 8.2. (Field: `vote_average` from `known_for` in `/search/person` data)",,17.70241951942444
+Who is the director of Leonardo DiCaprio's latest movie?,0.6666666666666666,0.6666666666666666,4,29977,"The latest movie featuring Leonardo DiCaprio is ""Killers of the Flower Moon,"" released on 2023-10-18. However, the provided data does not include information about the director of this movie. Therefore, the answer is 'Insufficient data'.",,20.12972855567932
+tell me a TV show recently directed by Catherine Hardwicke,1.0,1.0,3,5469,"The most recent TV show directed by Catherine Hardwicke is ""Under the Bridge,"" with the first credit air date of 2024-04-24.",,14.383068799972534
+Please recommend me some TV shows similar to Breaking Bad,1.0,1.0,3,6724,"Based on the provided API data, TV shows similar to ""Breaking Bad"" include:
+
+1. **Better Call Saul** - A prequel to ""Breaking Bad"" focusing on the character Saul Goodman. (Fields: `id`: 60059, `name`: ""Better Call Saul"", `genre_ids`: [80, 18])
+
+2. **Dexter** - Follows Dexter Morgan, a blood spatter analyst who leads a secret life as a serial killer. (Fields: `id`: 1405, `name`: ""Dexter"", `genre_ids`: [80, 18, 9648])
+
+3. **The Sopranos** - Centers on mobster Tony Soprano and his struggles to balance his family life with his role as the leader of a criminal organization. (Fields: `id`: 1398, `name`: ""The Sopranos"", `genre_ids`: [80, 18])
+
+4. **Fargo** - An anthology series dealing with stories involving malice, violence, and murder. (Fields: `id`: 60622, `name`: ""Fargo"", `genre_ids`: [80, 18])
+
+5. **Mr. Robot** - A drama about a young programmer who connects with people by hacking them. (Fields: `id`: 62560, `name`: ""Mr. Robot"", `genre_ids`: [80, 18])",,10.788739919662476
+Who is the director of today's most trending movie?,0.0,0.0,2,1194,,HTTP Error 400: Bad Request,5.4664177894592285
+"Who is the director of the movie ""Twilight""?",1.0,1.0,3,37144,"The director of the movie ""Twilight"" (2008) is **Catherine Hardwicke**. This information is found in the ""crew"" field under the ""Directing"" department with the job ""Director"".",,15.071223974227905
+give me a photo belong to the second episode of the first season of the Witcher,0.3333333333333333,0.3333333333333333,4,3016,Insufficient data.,,18.743977546691895
+What is top-1 rated movie?,1.0,1.0,3,5477,"The top-1 rated movie is ""The Shawshank Redemption"" with a vote average of 8.713.",,10.035357475280762
+"What is the release date of the movie ""The Matrix""?",1.0,1.0,3,12156,"The release date of the movie ""The Matrix"" is ""1999-03-31"" as per the field `release_date` in the search results.",,9.830654382705688
+Who is the most popular person?,1.0,1.0,3,14254,Clara Stack is the most popular person with a popularity score of 47.0532.,,9.323727369308472
+Give me some cover images of movies directed by Christopher Nolan.,0.6666666666666666,0.6666666666666666,4,16433,"Here are some cover images of movies directed by Christopher Nolan:
+
+1. ""Interstellar"" - Poster Path: `/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg`
+2. ""Inception"" - Poster Path: `/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg`
+3. ""The Dark Knight"" - Poster Path: `/qJ2tW6WMUDux911r6m7haRef0WH.jpg`
+
+These images can be accessed by appending the poster path to the base URL of the image server.",,12.084129571914673
+"What are some common keywords associated with movie ""Titanic""?",1.0,1.0,3,5821,"Common keywords associated with the movie ""Titanic"" are:  
+- Ship  
+- Soulmates  
+- Panic  
+- Shipwreck  
+- Atlantic Ocean  
+- Evacuation  
+- Iceberg  
+- Titanic  
+- Forbidden Love  
+- Ocean Liner  
+- Based on True Story  
+- Rich Woman Poor Man  
+- Romance  
+- Love  
+- Tragedy  
+- Tragic Love  
+- Historical Fiction  
+- Class Differences  
+- Love Affair  
+- Death  
+- Historical Event  
+- Lifeboat  
+- Star Crossed Lovers  
+- Sinking Ship  
+- Rich Snob  
+- Tragic Romance  
+- Disaster Movie  
+- 1910s  
+
+(Source: `GET /movie/{movie_id}/keywords`, fields: `keywords.name`)",,15.903238773345947
+Give me a show that is currently on the air,1.0,1.0,3,5468,"""NCIS"" is currently on the air. (Field: ""name"": ""NCIS"")",,16.01070284843445
+When is Clint Eastwood's latest movie scheduled to be released?,0.6666666666666666,0.6666666666666666,4,15889,Insufficient data.,,12.605310678482056
+Give me some movie reviews about The Dark Knight,1.0,1.0,3,23492,"Here are some reviews for ""The Dark Knight"" (2008):
+
+1. **tricksy**: ""Excellent movie. Best of the trilogy. Lovely music. Nolan is a genius. So is Heath Ledger."" [Source](https://www.themoviedb.org/review/557693fac3a368569a003fab)
+
+2. **talisencrw**: ""This has no competition. It is the very finest comic-book character movie ever made... Peerless."" [Source](https://www.themoviedb.org/review/574639f9c3a36806b00002c1)
+
+3. **erickprieto**: ""Perhaps the best Batman movie of all times... Heath Ledger presents an excellent impersonification of a psychopath."" [Source](https://www.themoviedb.org/review/5be161edc3a3680a00009915)
+
+4. **moubledian**: ""Christian Bale plays such a well-rounded Batman and Bruce Wayne... Heath Ledger plays such a scary and creepy Joker."" [Source](https://www.themoviedb.org/review/5c95ccc40e0a2645f151d76d)
+
+5. **tmdb22590444**: ""One of the best movies of all time... Heath Ledger who played as the Joker... One of the best parts of Christopher Nolan is that in every movie of his, the cinematography would look amazing."" [Source](https://www.themoviedb.org/review/5ccbd4ee0e0a262fcd009b52)
+
+6. **AstroNoud**: ""Unforgettable crime film with good dialogue, thrilling action and chase scenes and once again a magnificent cast (most notably a terrifically terrifying Ledger) and superb score."" [Source](https://www.themoviedb.org/review/621a966ad7a70a00430d4c21)
+
+7. **The Movie Mob**: ""A cinematic marvel and once-in-a-decade masterpiece... Ledger was born for this role with a performance in league with Anthony Hopkins' Hannibal Lecter or Val Kilmer's Doc Holliday."" [Source](https://www.themoviedb.org/review/63001999097c49007f5fced9)
+
+These reviews highlight the film's excellence, particularly praising Heath Ledger's performance as the Joker and Christopher Nolan's direction.",,16.138850450515747
+What are some movies that are similar to one of the movies directed by Francis Ford Coppola?,0.6666666666666666,0.6666666666666666,4,15232,Insufficient data.,,15.315715789794922
+Who is the lead actor in the latest released movie?,1.0,1.0,3,1793,Insufficient data.,,8.582586288452148
+give me one image of the movie that is currently showing in theaters,0.5,0.5,4,6155,"The image of a movie currently showing in theaters is from ""Zootopia 2"". The poster path is `/oJ7g2CifqpStmoYQyaLQgEU32qO.jpg`.",,12.019388675689697
+What is the most popular movie right now and what is its keywords?,0.5,0.5,4,6099,"The most popular movie right now is ""Zootopia 2"" with a popularity score of 431.2602. However, the provided API data does not include any information about the movie's keywords. Therefore, the keywords for ""Zootopia 2"" are 'Insufficient data'.",,10.29306435585022
+What are the keywords of the most popular movie right now,0.5,0.5,4,6035,"The most popular movie right now is ""Zootopia 2"" with a popularity score of 431.2602. However, the provided API data does not include a field for keywords. Therefore, the answer is: Insufficient data.",,12.003233909606934
+"Who has starred in a movie ""Titanic""",1.0,1.0,3,39188,"The movie ""Titanic"" (1997) stars Leonardo DiCaprio as Jack Dawson, Kate Winslet as Rose DeWitt Bukater, Billy Zane as Cal Hockley, Kathy Bates as Molly Brown, Frances Fisher as Ruth DeWitt Bukater, Gloria Stuart as Old Rose, and Bill Paxton as Brock Lovett, among others. (Source: GET /movie/{movie_id}/credits, ""cast"" field)",,15.648069620132446
+What do the logo looks like for Paramount Pictures?,1.0,1.0,3,2250,The logo for Paramount Pictures can be found at the file path `/jay6WcMgagAklUt7i9Euwj1pzTF.png`.,,8.407811403274536
+"tell me where the company ""universal pictures"" was founded?",0.5,0.5,4,2438,Insufficient data.,,18.591598749160767
+"When is the movie ""Titanic"" released?",1.0,1.0,3,16029,"The movie ""Titanic"" was released on December 19, 1997, in the United States. This information is found in the field `release_date` under the `iso_3166_1` code ""US"" with `type` 3 in the release dates data.",,14.09650468826294
+Who has starred in the first movie of Star Wars collection?,0.3333333333333333,0.3333333333333333,4,2809,Insufficient data.,,15.398114681243896
+give me a movie cover of a movie from the collection Harry Potter,0.3333333333333333,0.3333333333333333,4,2350,The movie cover for a movie from the Harry Potter Collection is available at the path: `/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg`.,,14.339297771453857
+What are some keywords for a movie of the collection The Hunger Games?,0.3333333333333333,0.3333333333333333,4,2128,Insufficient data.,,11.15683126449585
+When are the release dates for the movies of the collection The Hobbit?,0.3333333333333333,0.3333333333333333,4,2096,Insufficient data.,,10.447287797927856
+List movies from The Fast and the Furious collection,0.5,0.5,4,2078,Insufficient data.,,8.956105709075928
+Give me a review of a movie from the collection The Fast and the Furious.,0.3333333333333333,0.3333333333333333,4,2209,Insufficient data.,,12.955532789230347
+When was the first movie of the collection Lord of the Rings released?,0.3333333333333333,0.3333333333333333,4,2011,Insufficient data.,,15.184777736663818
+tell me the directors of the first season of House of Cards,0.3333333333333333,0.3333333333333333,4,11062,Insufficient data.,,18.401634693145752
+I want some tv shows that similar to House of Cards,0.5,0.5,4,6278,Insufficient data.,,17.00897979736328
+When did the most popular TV show currently on the air start?,0.5,0.5,4,6067,"The most popular TV show currently on the air is ""Stranger Things"" with a popularity score of 596.9932. It started on ""2016-07-15"".",,10.596635818481445
+tell me a few more works directed by the director of Django Unchained,0.6666666666666666,0.6666666666666666,4,17692,"Quentin Tarantino directed ""Django Unchained"". The API data does not provide information on other works directed by him. Insufficient data.",,16.137919187545776
+tell me the cast of a TV show on the air,0.5,0.5,4,6047,Insufficient data. The API data provided does not include the cast information for any TV show currently on the air.,,12.012152910232544
+I need a review for Breaking Bad,0.5,0.5,4,3954,"Breaking Bad is a critically acclaimed TV series with a high vote average of 8.936 based on 16,673 votes. The show follows Walter White, a New Mexico chemistry teacher diagnosed with Stage III cancer, who enters the dangerous world of drugs and crime to secure his family's financial future. It is popular, with a popularity score of 100.215. (Fields: ""overview"", ""vote_average"", ""vote_count"", ""popularity"")",,20.105586528778076
+I'm watching the tv series The Last Of Us and I need some more recommendations,1.0,1.0,3,6234,"Based on the provided API data, here are some TV series recommendations similar to ""The Last of Us"":
+
+1. **The Mandalorian** - A lone gunfighter navigates the galaxy's outer reaches post-Galactic Empire. (Vote Average: 8.416)
+2. **Chernobyl** - A dramatization of the catastrophic nuclear accident at Chernobyl. (Vote Average: 8.693)
+3. **House of the Dragon** - The Targaryen dynasty's power struggles in the ""Game of Thrones"" universe. (Vote Average: 8.306)
+4. **Game of Thrones** - Noble families vie for control of Westeros amidst ancient threats. (Vote Average: 8.5)
+5. **Breaking Bad** - A chemistry teacher turns to crime after a cancer diagnosis. (Vote Average: 8.936)
+
+These series share themes of survival, drama, and intense storytelling.",,13.817384004592896
+I'm watching a TV show called The Last Of Us and I need some more recommendations,1.0,1.0,3,6242,"Based on the provided API data, here are some TV show recommendations similar to ""The Last of Us"":
+
+1. **The Mandalorian** - A lone gunfighter navigates the galaxy's outer reaches post-Galactic Empire. (Vote Average: 8.416)
+2. **Chernobyl** - A dramatization of the catastrophic nuclear accident and the sacrifices made to save Europe. (Vote Average: 8.693)
+3. **House of the Dragon** - The Targaryen dynasty's power struggles and the seeds of division in the realm. (Vote Average: 8.306)
+4. **Game of Thrones** - Noble families vie for control of Westeros amidst ancient evils awakening. (Vote Average: 8.5)
+5. **Breaking Bad** - A chemistry teacher turns to crime after a terminal cancer diagnosis to secure his family's future. (Vote Average: 8.936)
+
+These shows share themes of survival, complex narratives, and high stakes, making them suitable recommendations.",,13.081023216247559
+"tell me the guest star from season 3, episode 24 of Friends",0.5,0.5,4,5838,Insufficient data.,,16.53464674949646
+Who is the lead actor in the most popular TV show?,0.5,0.5,4,10156,Insufficient data. The API does not provide information about the lead actor for the most popular TV show.,,14.106499671936035
+give me a keyword of the top-1 rated TV show,0.5,0.5,4,10917,"The top-rated TV show is ""Breaking Bad"". A keyword from its overview is ""chemistry"".",,18.954282999038696
+give me a poster of 2 Broke Girls,1.0,1.0,3,1715,"The poster for ""2 Broke Girls"" can be found at the path: `/wW1SDEoZ6pDfnSkVQuXwOo8ICep.jpg`.",,11.808657169342041
+How many episodes does 2 Broke Girls have in total?,0.3333333333333333,0.3333333333333333,4,2940,Insufficient data.,,13.477135419845581
+When was the company that produced The Big Bang Theory founded?,0.5,0.5,4,2370,Insufficient data.,,16.08457040786743
+When was the TV show The Big Bang Theory created?,0.5,0.5,4,2045,"The TV show The Big Bang Theory was created on ""2007-09-24"" (field: ""first_air_date"").",,32.06740212440491
+give me a keyword of the most popular TV show,0.5,0.5,4,5977,"The most popular TV show based on the ""popularity"" field is ""Stranger Things"" with a popularity score of 596.9932. Therefore, a keyword for the most popular TV show is ""Stranger Things"".",,13.005451440811157
+What did the third episode of the second season of Westworld talk about?,0.5,0.5,4,5354,Insufficient data.,,14.424147367477417
+Tell me the air date of the second season of Game of Thrones,0.5,0.5,4,5552,Insufficient data.,,16.631208658218384
+ give me a poster of the third episode of Band of Brothers,0.3333333333333333,0.3333333333333333,4,5870,Insufficient data.,,11.034976959228516
+What is the logo of the network that produced Game of Thrones?,0.3333333333333333,0.3333333333333333,4,5611,Insufficient data.,,14.849016666412354
+give me the homepage of the network that produced Game of Thrones,0.3333333333333333,0.3333333333333333,4,5492,Insufficient data.,,16.789463758468628
+give me a keyword of the most popular TV show currently,0.5,0.5,4,10113,"The most popular TV show currently is ""Stranger Things"" with a popularity score of 596.9932.",,14.035835027694702
+Where is the headquarter of the company that produced currently the most popular TV show?,0.3333333333333333,0.3333333333333333,4,6106,"The most popular TV show currently is ""Stranger Things"" with a popularity score of 596.9932. The company that produced ""Stranger Things"" is Netflix, and its headquarters is located in Los Gatos, California, USA.",,18.144561290740967
+What is the genre of The Mandalorian?,0.6666666666666666,0.6666666666666666,4,2712,"The genre of ""The Mandalorian"" is Sci-Fi & Fantasy, Action & Adventure, and Drama. This is derived from the genre_ids [10765, 10759, 18] in the TV search data, which correspond to the genres ""Sci-Fi & Fantasy,"" ""Action & Adventure,"" and ""Drama"" in the genre list data.",,15.952569723129272
+When is the birthday of the lead actor of today's most trending TV show?,0.3333333333333333,0.3333333333333333,4,6437,"The most trending TV show today is ""Stranger Things"" with the highest popularity score of 596.9932. However, the API data does not provide information about the lead actor or their birthday. Therefore, the answer is 'Insufficient data'.",,17.714937925338745
+What is the homepage of the network that produced today's most trending TV show?,0.3333333333333333,0.3333333333333333,4,6501,Insufficient data. The API data provided does not include information about the network or its homepage for the trending TV shows.,,23.046055793762207
+give me a review of today's most trending TV show,0.0,0.0,2,1202,,HTTP Error 400: Bad Request,5.984746694564819
+I prefer a TV show that similar to today's most trending TV show,0.0,0.0,2,1703,,,8.760218620300293
+I need a poster of today's most trending TV show,0.0,0.0,2,1203,,HTTP Error 400: Bad Request,11.00092887878418
+Who has worked with Jeremy Clarkson in his most popular TV show?,0.75,0.75,4,19866,"Jeremy Clarkson's most popular TV show is ""The Grand Tour"" (id: 67557) based on vote count and popularity. He worked with Richard Hammond and James May in this show.",,31.390528202056885
+What does the lead actor of the first episode of second season of Black Mirror look like?,0.3333333333333333,0.3333333333333333,4,2485,Insufficient data.,,12.80134129524231
+When is the lead actor of The Mandalorian born?,0.3333333333333333,0.3333333333333333,4,2880,Insufficient data.,,17.815794706344604
+Who is the lead actor of today's most popular TV show?,0.5,0.5,4,6047,"Insufficient data. The API data does not provide information about the lead actor of the most popular TV show, ""Stranger Things"".",,21.965977668762207
+give me a photo of the lead actor of the most popular TV show of this week,0.3333333333333333,0.3333333333333333,4,6086,Insufficient data.,,11.565571069717407
+give me some reviews of Cate Blanchett's latest TV show,0.6666666666666666,0.6666666666666666,4,15372,Insufficient data.,,13.064403533935547
+What is David Schwimmer's most popular TV show?,1.0,1.0,3,17335,"David Schwimmer's most popular TV show is ""Friends,"" as indicated by its high popularity score of 84.7169 and vote average of 8.422 with 8724 votes in the API data under his TV credits.",,21.181669235229492
+Who directed the third episode of the second season of Black Mirror?,0.5,0.5,4,2291,Insufficient data.,,10.369038343429565
+give me some movies that Christopher Nolan known for,0.6666666666666666,0.6666666666666666,4,16257,"Christopher Nolan is known for the following movies:
+
+1. ""Interstellar"" (Field: `known_for[0].title`)
+2. ""Inception"" (Field: `known_for[1].title`)
+3. ""The Dark Knight"" (Field: `known_for[2].title`)",,12.436516761779785
+"Avatar versus Avatar: The Way of Water, which has a higher rating",0.3333333333333333,0.3333333333333333,4,5987,"""Avatar: The Way of Water"" has a higher rating with a vote average of 7.6 compared to ""Avatar,"" which is not listed in the provided data. Therefore, based on the available data, ""Avatar: The Way of Water"" has the highest rating.",,20.931148767471313
+Show me some English movies rating no less than 7.0 and no earlier than 2021,1.0,1.0,3,5680,"The following English movies have a rating of no less than 7.0 and were released no earlier than 2021:
+
+1. **Zootopia 2**
+   - Release Date: 2025-11-26
+   - Vote Average: 7.669
+
+2. **Wake Up Dead Man: A Knives Out Mystery**
+   - Release Date: 2025-11-26
+   - Vote Average: 7.402
+
+3. **Hunting Season**
+   - Release Date: 2025-12-05
+   - Vote Average: 7.16
+
+4. **London Calling**
+   - Release Date: 2025-09-18
+   - Vote Average: 7.0
+
+5. **Predator: Badlands**
+   - Release Date: 2025-11-05
+   - Vote Average: 7.344
+
+6. **Old Henry**
+   - Release Date: 2021-10-01
+   - Vote Average: 7.285
+
+7. **Dracula**
+   - Release Date: 2025-07-30
+   - Vote Average: 7.095",,8.869136095046997
+What is the genre of the movie Lord of the Ring?,0.5,0.5,4,5654,"The genre of the movie ""The Lord of the Rings: The Fellowship of the Ring"" is Adventure, Fantasy, and Action, as indicated by the ""genre_ids"": [12, 14, 28] field in the API data.",,13.761855363845825
+What is the birthday of the most popular person right now?,0.5,0.5,4,14783,Insufficient data,,9.680072784423828
+give me a poster of the second season of Big Bang Theory,0.3333333333333333,0.3333333333333333,4,2186,Insufficient data.,,16.83751153945923
+What is the name of the third episod of the second season of Mandalorian?,0.3333333333333333,0.3333333333333333,4,2262,Insufficient data.,,22.43622350692749
+When is the bitrhday of the lead actor of the movie The Shawshank Redemptionn?,0.3333333333333333,0.3333333333333333,4,1933,Insufficient data.,,14.006829977035522
+When is the birthday of the director of the movie The Shawshank Redemption?,0.6666666666666666,0.6666666666666666,4,16842,Insufficient data.,,14.580732822418213
+Where is the headquarter of the company that created the movie The Shawshank Redemption?,0.3333333333333333,0.3333333333333333,4,2415,Insufficient data.,,13.190293073654175
+Where is the headquarter of the company that created the collection Star Wars?,0.3333333333333333,0.3333333333333333,4,2826,Insufficient data.,,11.277092933654785
+"Who has an earlier release date, The Double Life of Veronique or Mulholland Drive?",1.0,1.0,3,13348,"The Double Life of Véronique has an earlier release date of May 15, 1991, in France (field: ""release_date"": ""1991-05-15""). There is no data provided for Mulholland Drive's release date. Therefore, based on the available data, The Double Life of Véronique has the earlier release date.",,18.5216383934021
+Is the director of Twin Peaks Season 1 and Mulholland Drive the same person?,0.5,0.5,4,2103,Insufficient data.,,11.935028076171875
+Where was the director of Mulholland Drive born?,0.3333333333333333,0.3333333333333333,4,4174,Insufficient data.,,25.028037309646606
+Is Mulholland Drive in the Top-10 rated list of the TMDB?,1.0,1.0,3,5938,Insufficient data.,,9.833876848220825
+"Who directed more movies, Akira Kurosawa or Spielberg?",1.0,1.0,3,33176,Insufficient data.,,15.04751706123352
+What TV series has the director of Mulholland Drive directed?,0.6666666666666666,0.6666666666666666,4,3845,Insufficient data.,,31.634161949157715
+Tell me about actor Scarlett Johansson's birthday,0.5,0.5,4,2455,Insufficient data.,,9.2578866481781
+How many seasons of Sword Art Online are there?,0.3333333333333333,0.3333333333333333,4,3263,Insufficient data.,,12.052201986312866
+Are Yui Aragaki and Gen Hoshino co-starring in We Married as Job?,0.6666666666666666,0.6666666666666666,4,2071,Insufficient data.,,14.630252599716187
+"Who is older, by how many years, the director of film Barbie or the lead actor of television DEATH NOTE?",0.6,0.6,4,10911,Insufficient data.,,21.346432209014893
+Tell me about Katherine LaNasa's latest movie appearance.,0.6666666666666666,0.6666666666666666,4,9139,"Katherine LaNasa's latest movie appearance is in ""Black Karen,"" released on January 23, 2022, where she played the character ""Therapist"" (credit_id: ""64c8e12608cf87011c55f4eb"").",,22.809052228927612
+Give me one cover image of the movie Oppenheimer.,0.5,0.5,4,1910,Insufficient data.,,11.050732851028442
